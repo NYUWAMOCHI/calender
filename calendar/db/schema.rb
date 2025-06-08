@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_08_062158) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_08_062755) do
   create_table "groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "owner_id"
@@ -20,6 +20,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_08_062158) do
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_groups_on_owner_id", unique: true
     t.index ["user_id"], name: "index_groups_on_user_id"
+  end
+
+  create_table "memberships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.integer "role"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -40,4 +51,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_08_062158) do
   end
 
   add_foreign_key "groups", "users"
+  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "users"
 end
