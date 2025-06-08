@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>OGI ホーム</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- サイドメニュー -->
+  <% if user_signed_in? %>
+    <aside class="fixed top-8 right-8 w-40 space-y-4 z-10">
+      <div class="border rounded-lg bg-white shadow p-2">
+        <nav class="flex flex-col space-y-2">
+          <%= link_to "HOME", root_path, class: "block px-4 py-2 rounded hover:bg-gray-100 text-center" %>
+          <%= link_to "ユーザーページ", user_path(current_user), class: "block px-4 py-2 rounded hover:bg-gray-100 text-center" %>
+          <%= link_to "プロフ編集", edit_user_path(current_user), class: "block px-4 py-2 rounded hover:bg-gray-100 text-center" %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "block px-4 py-2 rounded hover:bg-gray-100 text-center" %>
+        </nav>
+      </div>
+    </aside>
+  <% else %>
+    <aside class="fixed top-8 right-8 w-40 space-y-4 z-10">
+      <div class="border rounded-lg bg-white shadow p-2">
+        <nav class="flex flex-col space-y-2">
+          <%= link_to "HOME", root_path, class: "block px-4 py-2 rounded hover:bg-gray-100 text-center" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "block px-4 py-2 rounded hover:bg-gray-100 text-center" %>
+          <%= link_to "ログイン", new_user_session_path, class: "block px-4 py-2 rounded hover:bg-gray-100 text-center" %>
+        </nav>
+      </div>
+    </aside>
+  <% end %>
+
+  <!-- メイン -->
+  <main class="flex-1 flex flex-col items-center pt-12 pb-8">
+    <!-- ロゴ -->
+    <img src="logo.png" alt="OGIロゴ" class="w-48 h-48 object-contain mb-4 drop-shadow-lg">
+
+    <!-- 検索バー -->
+    <div class="flex items-center w-full max-w-md mb-6">
+      <input type="text" placeholder="夢検索" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-300">
+      <button class="px-4 py-2 bg-orange-400 text-white rounded-r-lg hover:bg-orange-500">検索</button>
+    </div>
+    <div class="text-sm text-gray-500 mb-2">←（夢）検索</div>
+
+    <!-- タグ切り替え -->
+    <div class="flex w-full max-w-2xl justify-between mb-2 text-gray-700">
+      <span>職掌</span>
+      <span>好きなこと</span>
+      <span class="text-xs text-gray-400">（夢）切り替えることでタグの変更を</span>
+    </div>
+    <div class="flex w-full max-w-2xl justify-between mb-4 text-xs text-gray-400">
+      <span></span>
+      <span></span>
+      <span>（夢）ユーザーがタグを追加できリロードで8個ランダムで出る</span>
+    </div>
+
+    <!-- タグ一覧 -->
+    <div class="grid grid-cols-4 gap-2 w-full max-w-2xl mb-8">
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ1</button>
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ2</button>
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ3</button>
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ4</button>
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ5</button>
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ6</button>
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ7</button>
+      <button class="bg-white border rounded-lg px-3 py-1 text-gray-700 hover:bg-orange-50">タグ8</button>
+    </div>
+
+    <!-- プロフィールカード -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+      <!-- 1枚目 -->
+      <a href="#" class="block bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex flex-col items-center">
+          <div class="w-20 h-20 bg-gray-200 rounded-full mb-2"></div>
+          <div class="font-bold text-lg">菅原 渚</div>
+          <div class="text-sm text-gray-500 mb-2">歴年数・時間帯・ステータス・数</div>
+          <div class="flex flex-wrap gap-1 mb-2">
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+          </div>
+          <div class="flex items-center mb-2">
+            <span class="font-bold text-xl mr-2">サーバーエンジニア</span>
+            <span class="text-gray-400 text-2xl">♡</span>
+          </div>
+          <div class="text-gray-600 text-sm text-center">プロフィール140文字。</div>
+        </div>
+      </a>
+      <!-- 2枚目 -->
+      <a href="#" class="block bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex flex-col items-center">
+          <div class="w-20 h-20 bg-gray-200 rounded-full mb-2"></div>
+          <div class="font-bold text-lg">菅原 渚</div>
+          <div class="text-sm text-gray-500 mb-2">歴年数・時間帯・ステータス・数</div>
+          <div class="flex flex-wrap gap-1 mb-2">
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+          </div>
+          <div class="flex items-center mb-2">
+            <span class="font-bold text-xl mr-2">サーバーエンジニア</span>
+            <span class="text-gray-400 text-2xl">♡</span>
+          </div>
+          <div class="text-gray-600 text-sm text-center">プロフィール140文字。</div>
+        </div>
+      </a>
+      <!-- 3枚目 -->
+      <a href="#" class="block bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex flex-col items-center">
+          <div class="w-20 h-20 bg-gray-200 rounded-full mb-2"></div>
+          <div class="font-bold text-lg">菅原 渚</div>
+          <div class="text-sm text-gray-500 mb-2">歴年数・時間帯・ステータス・数</div>
+          <div class="flex flex-wrap gap-1 mb-2">
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+            <span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs">スタレ好き</span>
+          </div>
+          <div class="flex items-center mb-2">
+            <span class="font-bold text-xl mr-2">サーバーエンジニア</span>
+            <span class="text-gray-400 text-2xl">♡</span>
+          </div>
+          <div class="text-gray-600 text-sm text-center">プロフィール140文字。</div>
+        </div>
+      </a>
+    </div>
+    <div class="text-xs text-gray-400 mt-4">↓クリックすることでユーザーページに遷移</div>
+
+    
+  </main>
+
+  <!-- フッター -->
+  <footer class="w-full border-t bg-white py-4 mt-auto">
+    <div class="max-w-5xl mx-auto flex justify-between text-gray-500 text-sm px-4">
+      <span>フッター</span>
+      <span>HOME</span>
+      <span>OGIXホームページ</span>
+    </div>
+  </footer>
+</body>
+</html>
