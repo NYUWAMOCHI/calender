@@ -31,7 +31,6 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout code
@@ -48,11 +47,3 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: mysql2://127.0.0.1:3306
         run: bin/rails db:migrate && bin/rails db:test:prepare && bin/rails test
-
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
