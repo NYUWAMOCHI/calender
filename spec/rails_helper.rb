@@ -2,7 +2,7 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
 
@@ -28,7 +28,7 @@ Capybara.register_driver :selenium_chrome_headless do |app|
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-dev-shm-usage')
   options.add_argument('--disable-gpu')
-  
+
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
@@ -37,4 +37,3 @@ Capybara.register_driver :selenium_chrome_headless do |app|
 end
 
 Capybara.default_driver = :selenium_chrome
-

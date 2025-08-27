@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'devise'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'mysql2', '~> 0.5'
