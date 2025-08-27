@@ -1,8 +1,268 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+plugins:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'lib/tasks/**/*'
+    - "db/schema.rb"
+    - 'bin/*'
+    - 'test/*'
+    - 'node_modules/**/*'
+    - 'config/initializers/**/*'
+    - 'public/**/*'
+    - 'storage/**/*'
+    - 'log/**/*'
+    - 'tmp/**/*'
+    - 'terraform/**/*'
+    - 'openapi/**/*'
+  NewCops: enable
+  SuggestExtensions: false
+
+Rails/HttpStatus:
+  Exclude:
+    - 'app/controllers/application_controller.rb'
+
+Rails/SkipsModelValidations:
+  AllowedMethods:
+    - 'touch'
+    - 'upsert_all'
+
+Layout/LineLength:
+  Max: 200
+  Exclude:
+    - 'spec/**/*'
+    - 'config/**/*'
+
+# パラメータの整列チェックを無効化
+Layout/ParameterAlignment:
+  Enabled: false
+
+# アクセス修飾子周りの空行チェックを無効化
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+# インデントの一貫性チェックを無効化
+Layout/IndentationConsistency:
+  Enabled: false
+
+# ブロック波括弧前の空白チェックを無効化
+Layout/SpaceBeforeBlockBraces:
+  Enabled: false
+
+# 属性アクセサ周りの空行チェックを有効化
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+# メソッド呼び出し演算子周りの空白チェックを有効化
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# リント（潜在的な問題）関連のルール
+# 非推奨OpenSSL定数の使用チェックを有効化
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+# 重複するelsif条件チェックを有効化
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+# 混合正規表現キャプチャタイプチェックを有効化
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+# Exceptionクラスの直接使用チェックを有効化
+Lint/RaiseException:
+  Enabled: true
+
+# Struct.newのオーバーライドチェックを有効化
+Lint/StructNewOverride:
+  Enabled: true
+
+# スタイル関連のルール
+# ASCIIコメントの強制を無効化
+Style/AsciiComments:
+  Enabled: false
+
+# クラス・モジュールのネスト記法チェックを無効化
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# ドキュメントコメントの強制を無効化
+Style/Documentation:
+  Enabled: false
+
+# 空メソッドの記法チェックを無効化
+Style/EmptyMethod:
+  Enabled: false
+
+# 凍結文字列リテラルコメントの強制を無効化
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# ガード句の使用チェックを無効化
+Style/GuardClause:
+  Enabled: false
+
+# 数値述語の記法チェックを無効化
+Style/NumericPredicate:
+  Enabled: false
+
+# 冗長なreturn文チェックを無効化
+Style/RedundantReturn:
+  Enabled: false
+
+# 数値リテラルの記法チェックを無効化
+Style/NumericLiterals:
+  Enabled: false
+
+# アクセサのグループ化チェックを無効化
+Style/AccessorGrouping:
+  Enabled: false
+
+# 配列への強制変換チェックを有効化
+Style/ArrayCoercion:
+  Enabled: true
+
+# 分割された属性アクセサチェックを有効化
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+# case文のようなif文チェックを有効化
+Style/CaseLikeIf:
+  Enabled: true
+
+# 指数記法の使用チェックを有効化
+Style/ExponentialNotation:
+  Enabled: true
+
+# 配列の最後の要素としてのハッシュチェックを無効化
+Style/HashAsLastArrayItem:
+  Enabled: false
+
+# ハッシュのeachメソッド使用チェックを有効化
+Style/HashEachMethods:
+  Enabled: true
+
+# ハッシュのようなcase文チェックを有効化
+Style/HashLikeCase:
+  Enabled: true
+
+# ハッシュのキー変換チェックを有効化
+Style/HashTransformKeys:
+  Enabled: true
+
+# ハッシュの値変換チェックを有効化
+Style/HashTransformValues:
+  Enabled: true
+
+# 冗長な代入チェックを有効化
+Style/RedundantAssignment:
+  Enabled: true
+
+# 冗長なfetchブロックチェックを有効化
+Style/RedundantFetchBlock:
+  Enabled: true
+
+# requireでの冗長なファイル拡張子チェックを有効化
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+# 冗長な正規表現文字クラスチェックを有効化
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+# 冗長な正規表現エスケープチェックを有効化
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+# 範囲を使用したスライシングチェックを有効化
+Style/SlicingWithRange:
+  Enabled: true
+
+# ハッシュリテラルの末尾カンマチェックを無効化
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+# Yoda条件チェックを無効化
+Style/YodaCondition:
+  Enabled: false
+
+# フォーマット文字列トークンのスタイルを強制
+Style/FormatStringToken:
+  EnforcedStyle: template
+
+# パフォーマンス関連のルール
+Performance/TimesMap:
+  Exclude:
+    # テストファイルを除外
+    - 'spec/**/*'
+
+# メトリクス（複雑性・長さ）関連のルール
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'config/**/*'
+    - 'app/views/api/v1/**/*'
+    - 'app/models/order_product.rb'
+
+# ABC複雑度チェックを無効化
+Metrics/AbcSize:
+  Enabled: false
+
+# メソッド長チェックを無効化
+Metrics/MethodLength:
+  Enabled: false
+
+# シンボル配列の記法チェックを無効化
+Style/SymbolArray:
+  Enabled: false
+
+# rescue修飾子の使用チェックを無効化
+Style/RescueModifier:
+  Enabled: false
+
+# クラス長チェックを無効化
+Metrics/ClassLength:
+  Enabled: false
+
+# パラメータリスト長チェックを無効化
+Metrics/ParameterLists:
+  Enabled: false
+
+# RSpecテスト関連のルール
+# ネストしたグループチェックを無効化
+RSpec/NestedGroups:
+  Enabled: false
+
+# 複数のメモ化ヘルパーチェックを無効化
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+# テスト例の長さチェックを無効化
+RSpec/ExampleLength:
+  Enabled: false
+
+# コンテキストの命名チェックを無効化
+RSpec/ContextWording:
+  Enabled: false
+
+# 複数の期待値チェックを無効化
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# letセットアップチェックを無効化
+RSpec/LetSetup:
+  Enabled: false
+
+# ゼロによる変更チェックを無効化
+RSpec/ChangeByZero:
+  Enabled: false
+
+# 命名規則関連のルール
+# 変数名の数値チェックを無効化
+Naming/VariableNumber:
+  Enabled: false
