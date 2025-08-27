@@ -1,135 +1,136 @@
 # Calender
 
-A modern Rails application built with the latest web technologies.
+卓日程くん
 
-## Features
+## 機能
 
-- **Rails 8.0.2** - Latest Rails framework
-- **MySQL** - Robust database backend
-- **Tailwind CSS** - Utility-first CSS framework
-- **Hotwire (Turbo + Stimulus)** - Modern JavaScript approach
-- **Import Maps** - Native ES modules without bundling
-- **Docker Support** - Containerized deployment with Kamal
+- **Rails 8.0.2**
+- **MySQL**
+- **Tailwind CSS**
+- **Hotwire (Turbo + Stimulus)**
+- **Import Maps**
+- **Docker**
+- **Kamal**
 
-## Prerequisites
+## 前提条件
 
 - Ruby 3.4.2
-- MySQL 5.7 or higher
-- Node.js 18+ (for Tailwind CSS compilation)
-- Docker (optional, for containerized deployment)
+- MySQL 5.7以上
+- Node.js 18以上（Tailwind CSSコンパイル用）
+- Docker（オプション、コンテナ化デプロイ用）
 
-## Installation
+## インストール
 
-1. **Clone the repository**
+1. **リポジトリをクローン**
    ```bash
    git clone <repository-url>
    cd calender
    ```
 
-2. **Install Ruby dependencies**
+2. **Ruby依存関係をインストール**
    ```bash
    bundle install
    ```
 
-3. **Install Node.js dependencies**
+3. **Node.js依存関係をインストール**
    ```bash
    npm install
    ```
 
-4. **Configure database**
+4. **データベースを設定**
    ```bash
    cp config/database.yml.example config/database.yml
-   # Edit config/database.yml with your database credentials
+   # config/database.ymlを編集してデータベース認証情報を設定
    ```
 
-5. **Setup database**
+5. **データベースをセットアップ**
    ```bash
    rails db:create
    rails db:migrate
    rails db:seed
    ```
 
-6. **Compile assets**
+6. **アセットをコンパイル**
    ```bash
    rails assets:precompile
    ```
 
-## Development
+## 開発
 
-### Starting the server
+### サーバーの起動
 ```bash
-# Start Rails server
+# Railsサーバーを起動
 rails server
 
-# Start Tailwind CSS watcher (in another terminal)
+# Tailwind CSSウォッチャーを起動（別ターミナルで）
 rails tailwindcss:watch
 ```
 
-### Running tests
+### テストの実行
 ```bash
-# Run all tests
+# すべてのテストを実行
 bundle exec rspec
 
-# Run specific test file
+# 特定のテストファイルを実行
 bundle exec rspec spec/models/user_spec.rb
 
-# Run with coverage
+# カバレッジ付きでテストを実行
 COVERAGE=true bundle exec rspec
 ```
 
-### Code quality
+### コード品質
 ```bash
-# Run RuboCop
+# RuboCopを実行
 bundle exec rubocop
 
-# Auto-correct RuboCop violations
+# RuboCop違反を自動修正
 bundle exec rubocop -a
 
-# Run Brakeman security scanner
+# Brakemanセキュリティスキャナーを実行
 bundle exec brakeman
 ```
 
-## Deployment
+## デプロイ
 
-This application uses [Kamal](https://kamal-deploy.org/) for deployment.
+このアプリケーションは[Kamal](https://kamal-deploy.org/)を使用してデプロイします。
 
 ```bash
-# Deploy to production
+# 本番環境にデプロイ
 kamal deploy
 
-# Deploy to staging
+# ステージング環境にデプロイ
 kamal deploy --config config/deploy.staging.yml
 ```
 
-## Project Structure
+## プロジェクト構造
 
 ```
 calender/
-├── app/                    # Application code
-│   ├── controllers/       # Controllers
-│   ├── models/           # Models
-│   ├── views/            # Views
-│   ├── assets/           # Asset pipeline
-│   └── javascript/       # JavaScript files
-├── config/               # Configuration files
-├── db/                   # Database files
-├── docs/                 # Documentation
-├── test/                 # Test files
-└── public/               # Public assets
+├── app/                    # アプリケーションコード
+│   ├── controllers/       # コントローラー
+│   ├── models/           # モデル
+│   ├── views/            # ビュー
+│   ├── assets/           # アセットパイプライン
+│   └── javascript/       # JavaScriptファイル
+├── config/               # 設定ファイル
+├── db/                   # データベースファイル
+├── docs/                 # ドキュメント
+├── test/                 # テストファイル
+└── public/               # パブリックアセット
 ```
 
-## Contributing
+## コントリビューション
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. リポジトリをフォーク
+2. featureブランチを作成（`git checkout -b feature/amazing-feature`）
+3. 変更をコミット（`git commit -m 'Add amazing feature'`）
+4. ブランチにプッシュ（`git push origin feature/amazing-feature`）
+5. プルリクエストを作成
 
-## License
+## ライセンス
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+このプロジェクトはMITライセンスの下で公開されています。詳細は[LICENSE](LICENSE)ファイルを参照してください。
 
-## Support
+## サポート
 
-For support and questions, please open an issue in the GitHub repository.
+サポートや質問がある場合は、GitHubリポジトリでIssueを作成してください。
