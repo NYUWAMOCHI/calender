@@ -1,6 +1,4 @@
-inherit_from: .rubocop_todo.yml
-
-require:
+plugins:
   - rubocop-rails
   - rubocop-performance
   - rubocop-rspec
@@ -21,8 +19,8 @@ AllCops:
     - 'tmp/**/*'
     - 'terraform/**/*'
     - 'openapi/**/*'
-    - 'openapi/**/*'
   NewCops: enable
+  SuggestExtensions: false
 
 Rails/HttpStatus:
   Exclude:
@@ -240,10 +238,6 @@ Metrics/ParameterLists:
 RSpec/NestedGroups:
   Enabled: false
 
-# 現在のパス期待値チェックを無効化
-Capybara/CurrentPathExpectation:
-  Enabled: false
-
 # 複数のメモ化ヘルパーチェックを無効化
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
@@ -262,10 +256,6 @@ RSpec/MultipleExpectations:
 
 # letセットアップチェックを無効化
 RSpec/LetSetup:
-  Enabled: false
-
-# Capybara機能メソッドチェックを無効化
-RSpec/Capybara/FeatureMethods:
   Enabled: false
 
 # ゼロによる変更チェックを無効化
