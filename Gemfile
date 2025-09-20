@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'mysql2', '~> 0.5'
