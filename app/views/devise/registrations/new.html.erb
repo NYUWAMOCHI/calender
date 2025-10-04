@@ -25,16 +25,16 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div>
-          <%= f.label :name, class: "block text-sm font-medium text-gray-800 dark:text-gray-400" %>
+          <%= f.label :name, "ニックネーム", class: "block text-sm font-medium text-gray-800 dark:text-gray-400" %>
           <%= f.text_field :name,
                 autofocus: true,
                 autocomplete: "name",
-                placeholder: "名前を入力してください（20文字まで）",
+                placeholder: "お名前を入力してください（20文字まで）",
                 class: "mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white text-sm" %>
         </div>
 
         <div class="mt-4">
-          <%= f.label :email, class: "block text-sm font-medium text-gray-800 dark:text-gray-400" %>
+          <%= f.label :email, "メールアドレス", class: "block text-sm font-medium text-gray-800 dark:text-gray-400" %>
           <%= f.email_field :email,
                 autocomplete: "email",
                 placeholder: "メールアドレスを入力してください",

@@ -6,11 +6,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  # メインページ
-  get 'pages/home'
-  root 'pages#home'
-
-  # 認証後のダッシュボード
+  # 認証後のダッシュボード（root）
+  root 'dashboard#index'
+  
+  # ダッシュボードの別名
   get 'dashboard', to: 'dashboard#index', as: :dashboard
 
 
