@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
+  # Devise認証ルート
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
+
+  # メインページ
   get 'pages/home'
   root 'pages#home'
 
-  resouse
+  # 認証後のダッシュボード
+  get 'dashboard', to: 'dashboard#index', as: :dashboard
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

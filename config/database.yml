@@ -27,6 +27,10 @@ development:
 test:
   <<: *default
   database: calender_test
+  host: <%= ENV.fetch("MYSQL_HOST", "localhost") %>
+  port: <%= ENV.fetch("MYSQL_PORT", "3306") %>
+  username: <%= ENV.fetch("MYSQL_USER", "root") %>
+  password: <%= ENV.fetch("MYSQL_PASSWORD", "password") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
