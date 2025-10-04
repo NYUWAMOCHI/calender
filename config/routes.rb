@@ -6,11 +6,14 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  # 認証後のダッシュボード（root）
-  root 'dashboard#index'
+  # トップページ（未ログイン時）とダッシュボード（ログイン済み時）
+  root 'home#index'
   
-  # ダッシュボードの別名
+  # ダッシュボード
   get 'dashboard', to: 'dashboard#index', as: :dashboard
+
+  # グループ関連
+  resources :groups, only: [:create, :show]
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

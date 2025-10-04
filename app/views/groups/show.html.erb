@@ -1,0 +1,52 @@
+<div class="min-h-screen bg-[#0D0D0D]">
+  <%= render 'shared/header' %>
+
+  <div class="container mx-auto px-4 py-6">
+    <!-- グループ情報 -->
+    <div class="bg-[#1a1a1a] border border-white rounded-lg p-6 mb-6">
+      <h1 class="text-white text-3xl font-bold mb-4"><%= @group.name %></h1>
+
+      <% if @group.intro.present? %>
+        <p class="text-gray-400 mb-4"><%= @group.intro %></p>
+      <% end %>
+
+      <div class="flex items-center space-x-2 text-gray-400">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+        </svg>
+        <span><%= @memberships.count %>人のメンバー</span>
+      </div>
+    </div>
+
+    <!-- メンバー一覧 -->
+    <div class="bg-[#1a1a1a] border border-white rounded-lg p-6">
+      <h2 class="text-white text-2xl font-bold mb-4">メンバー</h2>
+
+      <div class="space-y-3">
+        <% @memberships.each do |membership| %>
+          <div class="flex items-center justify-between bg-[#252525] rounded-lg p-4">
+            <div class="flex items-center space-x-3">
+              <!-- ユーザーアイコン -->
+              <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+                <span class="text-white text-sm font-bold"><%= membership.user.name[0] %></span>
+              </div>
+
+              <!-- ユーザー名 -->
+              <span class="text-white"><%= membership.user.name %></span>
+            </div>
+
+            <!-- 役割バッジ -->
+            <span class="px-3 py-1 rounded-full text-xs font-semibold <%= membership.kp? ? 'bg-orange-600 text-white' : 'bg-blue-600 text-white' %>">
+              <%= membership.kp? ? 'KP' : 'PL' %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 戻るボタン -->
+    <div class="mt-6">
+      <%= link_to "ダッシュボードに戻る", dashboard_path, class: "inline-block px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors" %>
+    </div>
+  </div>
+</div>
