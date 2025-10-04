@@ -5,6 +5,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  # Associations
+  has_many :groups, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :calendars, dependent: :destroy
+  has_many :scenarios, dependent: :destroy
+  has_many :memberships, dependent: :destroy
+  has_many :profiles, dependent: :destroy
+  has_many :availabilities, dependent: :destroy
+  has_many :user_scenarios, dependent: :destroy
+
+  # Validations
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, uniqueness: true
 
