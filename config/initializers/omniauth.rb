@@ -9,4 +9,4 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 
 OmniAuth.config.allowed_request_origin = Rails.application.config.allowed_request_origin if Rails.application.config.respond_to?(:allowed_request_origin)
-OmniAuth.config.silence_get_warnings = true
+OmniAuth.config.silence_get_warning = true
