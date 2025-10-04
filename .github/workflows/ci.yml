@@ -26,11 +26,13 @@ jobs:
 
     services:
       mysql:
-        image: mysql
+        image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_DATABASE: calender_test
         ports:
           - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout code
@@ -42,8 +44,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Wait for MySQL
+        run: |
+          until mysqladmin ping -h127.0.0.1 -P3306 --silent; do
+            echo "Waiting for MySQL to be ready..."
+            sleep 2
+          done
+
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: mysql2://127.0.0.1:3306
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_PORT: 3306
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ""
         run: bin/rails db:migrate && bin/rails db:test:prepare && bin/rails test
