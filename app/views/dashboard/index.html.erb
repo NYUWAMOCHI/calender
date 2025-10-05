@@ -1,10 +1,20 @@
-<div class="min-h-screen bg-[#0D0D0D]">
+<div class="bg-gray-100 min-h-screen w-full">
   <%= render 'shared/header' %>
 
-  <div class="container mx-auto px-4 py-6">
+  <div class="px-4 py-8 max-w-7xl mx-auto">
+    <!-- ウェルカムメッセージ -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        ようこそ、<%= current_user.name %>さん
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">
+        参加したい卓を選んでグループを作成しましょう
+      </p>
+    </div>
+
     <!-- あなたの卓予定ボタン -->
     <div class="mb-8">
-      <button class="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-black transition-colors duration-200">
+      <button class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-md">
         あなたの卓予定
       </button>
     </div>

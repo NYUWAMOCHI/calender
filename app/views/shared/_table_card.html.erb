@@ -2,32 +2,42 @@
   <%= f.hidden_field :name, value: table_name %>
   <%= f.hidden_field :intro, value: "#{table_name}の卓です" %>
 
-  <%= button_tag type: 'submit', class: "w-full text-left bg-[#1a1a1a] border border-white rounded-lg p-4 hover:bg-[#252525] transition-colors duration-200 cursor-pointer" do %>
+  <%= button_tag type: 'submit', class: "w-full text-left bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-lg hover:border-green-500 transition-all duration-200 cursor-pointer" do %>
     <div class="flex items-start space-x-4">
       <!-- アイコン枠 -->
-      <div class="w-20 h-20 border border-white rounded flex items-center justify-center flex-shrink-0">
-        <span class="text-white text-xs">アイコン</span>
+      <div class="w-16 h-16 border-2 border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center flex-shrink-0 bg-gray-50 dark:bg-gray-900">
+        <svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
       </div>
 
       <!-- 卓情報 -->
       <div class="flex-1">
         <!-- 卓名とロックアイコン -->
-        <div class="flex items-center space-x-2 mb-2">
-          <h3 class="text-white text-lg font-bold"><%= table_name %></h3>
+        <div class="flex items-center space-x-2 mb-1">
+          <h3 class="text-gray-900 dark:text-white text-lg font-bold"><%= table_name %></h3>
           <% if is_private %>
-            <svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+            <svg class="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>
           <% end %>
         </div>
 
         <!-- 公開ステータス -->
-        <p class="text-white text-sm mb-1">
-          <%= is_private ? '身内卓' : '公開卓' %>
-        </p>
+        <div class="flex items-center space-x-2 mb-2">
+          <% if is_private %>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+              身内卓
+            </span>
+          <% else %>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+              公開卓
+            </span>
+          <% end %>
+        </div>
 
         <!-- 時間帯 -->
-        <p class="text-gray-400 text-sm">
+        <p class="text-gray-600 dark:text-gray-400 text-sm">
           <%= time %>
         </p>
       </div>
