@@ -8,10 +8,9 @@ Rails.application.routes.draw do
 
   # 認証後のダッシュボード（root）
   root 'dashboard#index'
-  
+
   # ダッシュボードの別名
   get 'dashboard', to: 'dashboard#index', as: :dashboard
-
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

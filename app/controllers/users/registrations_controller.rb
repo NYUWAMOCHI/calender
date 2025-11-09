@@ -2,12 +2,12 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   # 新規登録後のリダイレクト先をカスタマイズ
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     dashboard_path
   end
 
   # アカウント更新後のリダイレクト先をカスタマイズ
-  def after_update_path_for(resource)
+  def after_update_path_for(_resource)
     dashboard_path
   end
 

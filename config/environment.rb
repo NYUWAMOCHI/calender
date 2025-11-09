@@ -6,6 +6,7 @@ if File.exist?('.env')
   File.readlines('.env').each do |line|
     line.strip!
     next if line.empty? || line.start_with?('#')
+
     key, value = line.split('=', 2)
     ENV[key] = value if key && value
   end

@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
 
     # neko_gemを使用してカレンダーを生成
     require 'neko_gem'
-    today = Date.today
+    today = Time.zone.today
     @calendar = NekoGem::Calendar.new(today.year, today.month).generate
   end
 end

@@ -31,6 +31,9 @@ Rails/SkipsModelValidations:
     - 'touch'
     - 'upsert_all'
 
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
 Layout/LineLength:
   Max: 200
   Exclude:
