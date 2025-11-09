@@ -1,13 +1,15 @@
 <% content_for :head do %>
   <style>
     main { max-width: none !important; margin: 0 !important; padding: 0 !important; }
+    body { margin: 0 !important; padding: 0 !important; }
   </style>
 <% end %>
 
-<div class="min-h-screen bg-[#0D0D0D]">
+<div class="min-h-screen bg-[#0D0D0D] flex flex-col">
   <%= render 'shared/header' %>
 
-  <div class="w-full px-6 py-6">
+  <div class="flex-1 w-screen overflow-y-auto">
+    <div class="w-screen p-6">
     <!-- シナリオ名 -->
     <div class="mb-6">
       <h1 class="text-white text-2xl font-bold border-2 border-white rounded-lg px-6 py-3 inline-block">
@@ -109,6 +111,7 @@
           <% end %>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div>
