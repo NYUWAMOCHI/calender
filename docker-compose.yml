@@ -1,0 +1,52 @@
+services:
+  # MySQL データベース
+  db:
+    image: mysql:8.0
+    container_name: calender_db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: calender_development
+      MYSQL_USER: calender_user
+      MYSQL_PASSWORD: password
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Rails アプリケーション
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: calender_web
+    command: bash -c "bin/rails db:create && bin/rails db:migrate && bin/rails server -b 0.0.0.0"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+    environment:
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: "true"
+      DATABASE_URL: mysql2://calender_user:password@db:3306/calender_development
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: calender_user
+      MYSQL_PASSWORD: password
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    depends_on:
+      db:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
+
+volumes:
+  mysql_data:
+  bundle_cache:
