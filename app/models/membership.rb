@@ -2,7 +2,7 @@ class Membership < ApplicationRecord
   belongs_to :user
   belongs_to :group
 
-  enum role: { pl: 0, kp: 1 }
+  enum :role, { pl: 0, kp: 1 }
 
   validates :user_id, uniqueness: { scope: :group_id }
 end

@@ -48,4 +48,5 @@
 
 # Ignore Docker-related files
 /.dockerignore
-/Dockerfile*
+/Dockerfile
+# Note: Dockerfile.dev is needed for docker-compose development, so we don't ignore it

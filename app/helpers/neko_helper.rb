@@ -1,0 +1,2 @@
+module NekoHelper
+end
