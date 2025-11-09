@@ -63,7 +63,7 @@ class UserTest < ActiveSupport::TestCase
     credentials = Struct.new(:token, :refresh_token, :expires_at).new(
       'access_token_value',
       'refresh_token_value',
-      (Time.current + 1.hour).to_i
+      1.hour.from_now.to_i
     )
     Struct.new(:uid, :info, :credentials).new(uid, info, credentials)
   end
