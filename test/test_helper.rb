@@ -8,9 +8,6 @@ module ActiveSupport
     # Disable parallelization in CI to avoid database connection issues
     parallelize(workers: ENV['CI'] ? 1 : :number_of_processors)
 
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    fixtures :all
-
     # Add more helper methods to be used by all tests here...
   end
 end
