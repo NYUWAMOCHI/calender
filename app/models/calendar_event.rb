@@ -1,7 +1,7 @@
 class CalendarEvent < ApplicationRecord
   belongs_to :user
 
-  validates :user_id, :title, :start_time, :end_time, presence: true
+  validates :title, :start_time, :end_time, presence: true
 
   # Soft delete scope
   scope :not_deleted, -> { where(deleted_at: nil) }
