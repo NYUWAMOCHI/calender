@@ -6,13 +6,15 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
 
   # Associations
-  has_many :groups, dependent: :destroy
-  has_many :events, dependent: :destroy
-  has_many :calendars, dependent: :destroy
-  has_many :scenarios, dependent: :destroy
+  has_many :groups, dependent: :destroy  # KP として作成したグループ
   has_many :memberships, dependent: :destroy
-  has_many :profiles, dependent: :destroy
+  has_many :group_members, through: :memberships, source: :group
+  has_many :pending_events, through: :groups
+  has_many :confirmed_events, through: :groups
+  has_many :approvals, dependent: :destroy
+  has_many :calendar_events, dependent: :destroy
   has_many :availabilities, dependent: :destroy
+  has_many :profiles, dependent: :destroy
   has_many :user_scenarios, dependent: :destroy
 
   # Validations
