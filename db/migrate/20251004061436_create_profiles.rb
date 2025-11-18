@@ -7,8 +7,8 @@ class CreateProfiles < ActiveRecord::Migration[8.0]
       t.text :description
       t.integer :holiday_start_time
       t.integer :holiday_end_time
-      t.integer :start_time
-      t.integer :end_time
+      t.integer :weekday_start_time
+      t.integer :weekday_end_time
 
       t.timestamps
     end

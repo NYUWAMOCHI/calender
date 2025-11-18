@@ -75,8 +75,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_04_061525) do
     t.text "description"
     t.integer "holiday_start_time"
     t.integer "holiday_end_time"
-    t.integer "start_time"
-    t.integer "end_time"
+    t.integer "weekday_start_time"
+    t.integer "weekday_end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_profiles_on_group_id"
