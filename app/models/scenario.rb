@@ -1,6 +1,7 @@
 class Scenario < ApplicationRecord
-  belongs_to :user
-  has_many :user_scenarios, dependent: :destroy
+  belongs_to :group
+  has_many :pending_events, dependent: :destroy
+  has_many :confirmed_events, dependent: :destroy
 
-  validates :scenario_id, uniqueness: true
+  validates :name, presence: true
 end
