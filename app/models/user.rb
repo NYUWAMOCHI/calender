@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
 
   # Associations
-  has_many :groups, dependent: :destroy  # KP として作成したグループ
+  has_many :groups, dependent: :destroy # KP として作成したグループ
   has_many :memberships, dependent: :destroy
   has_many :group_members, through: :memberships, source: :group
   has_many :pending_events, through: :groups
