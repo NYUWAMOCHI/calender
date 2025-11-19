@@ -72,7 +72,7 @@ class CalendarSyncService
         description: google_event.description,
         google_calendar_id: 'primary',
         synced_at: Time.current,
-        deleted_at: nil  # Restore if previously deleted
+        deleted_at: nil
       )
 
       calendar_event.save
@@ -80,9 +80,8 @@ class CalendarSyncService
 
     # Hard delete events that were deleted in Google Calendar
     deleted_event_ids = existing_event_ids - google_event_ids
-    @user.calendar_events
-      .where(google_event_id: deleted_event_ids)
-      .where(deleted_at: nil)
-      .delete_all if deleted_event_ids.any?
+    return if deleted_event_ids.empty?
+
+    @user.calendar_events.where(google_event_id: deleted_event_ids).where(deleted_at: nil).delete_all
   end
 end

@@ -40,7 +40,7 @@ class User < ApplicationRecord
 
   # Build Google Calendar service for API access
   def google_calendar_service
-    return nil unless google_access_token.present?
+    return nil if google_access_token.blank?
 
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = build_google_authorization
