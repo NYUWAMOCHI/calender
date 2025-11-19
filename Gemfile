@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'devise'
+gem 'google-api-client'
+gem 'google-apis-calendar_v3'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'omniauth'

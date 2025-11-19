@@ -20,6 +20,7 @@ class User < ApplicationRecord
   # Validations
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, uniqueness: true
+  validates :google_uid, uniqueness: true, allow_nil: true
 
   def self.from_omniauth(auth)
     where(google_uid: auth.uid).first_or_create do |user|
@@ -35,5 +36,26 @@ class User < ApplicationRecord
 
   def google_token_expired?
     google_token_expires_at && google_token_expires_at < Time.current
+  end
+
+  # Build Google Calendar service for API access
+  def google_calendar_service
+    return nil unless google_access_token.present?
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = build_google_authorization
+    service
+  end
+
+  private
+
+  # Build OAuth2 authorization object for Google API calls
+  def build_google_authorization
+    Signet::OAuth2::Client.new(
+      client_id: ENV.fetch('GOOGLE_CLIENT_ID', ''),
+      client_secret: ENV.fetch('GOOGLE_CLIENT_SECRET', ''),
+      access_token: google_access_token,
+      refresh_token: google_refresh_token
+    )
   end
 end

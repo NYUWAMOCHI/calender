@@ -3,5 +3,5 @@ class Scenario < ApplicationRecord
   has_many :pending_events, dependent: :destroy
   has_many :confirmed_events, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 100 }
 end

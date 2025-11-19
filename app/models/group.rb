@@ -7,6 +7,7 @@ class Group < ApplicationRecord
   has_many :confirmed_events, dependent: :destroy
   has_many :profiles, dependent: :destroy
 
+  validates :user_id, presence: true
   validates :name, presence: true
   validates :planned_period_start, :planned_period_end, presence: true
 end
