@@ -38,3 +38,6 @@
 
 # Ignore knowledge base directory
 /.knowledge
+
+# Ignore Claude Code directory
+/.claude

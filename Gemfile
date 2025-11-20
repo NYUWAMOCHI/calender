@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'devise'
+gem 'google-api-client'
+gem 'google-apis-calendar_v3'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'omniauth'
@@ -42,6 +44,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
 end

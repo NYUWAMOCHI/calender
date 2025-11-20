@@ -5,6 +5,7 @@ require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
+require 'factory_bot_rails'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -18,9 +19,11 @@ RSpec.configure do |config|
   ]
   config.use_transactional_fixtures = true
   config.filter_rails_from_backtrace!
+  config.include FactoryBot::Syntax::Methods
+  config.include ActiveSupport::Testing::TimeHelpers
 end
 
-require 'webdrivers'
+require 'webdrivers' if ENV['RUN_SYSTEM_TESTS'] == 'true'
 
 Capybara.register_driver :selenium_chrome_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new

@@ -5,4 +5,5 @@ class Membership < ApplicationRecord
   enum :role, { pl: 0, kp: 1 }
 
   validates :user_id, uniqueness: { scope: :group_id }
+  validates :role, presence: true
 end
