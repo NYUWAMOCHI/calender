@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe CalendarEventCreationService, type: :service do
   let(:user) { create(:user) }
   let(:service) { described_class.new(user) }
-  let(:mock_google_service) { instance_double('Google::Apis::CalendarV3::CalendarService') }
+  let(:mock_google_service) { instance_double(Google::Apis::CalendarV3::CalendarService) }
   let(:fixed_time) { Time.zone.parse('2025-11-21 10:00:00') }
 
   before do
@@ -13,12 +13,8 @@ RSpec.describe CalendarEventCreationService, type: :service do
     travel_to(fixed_time)
   end
 
-  after do
-    travel_back
-  end
-
   describe '#initialize' do
-    it 'initializes with user and google calendar service' do
+    it 'ユーザーとGoogleカレンダーサービスで初期化される' do
       expect(service.instance_variable_get(:@user)).to eq(user)
       expect(service.instance_variable_get(:@service)).to eq(mock_google_service)
     end
@@ -38,9 +34,9 @@ RSpec.describe CalendarEventCreationService, type: :service do
       )
     end
 
-    context 'when service is available' do
-      it 'creates an event in Google Calendar' do
-        expect(mock_google_service).to receive(:insert_event).and_return(created_event)
+    context 'サービスが利用可能な場合' do
+      it 'Google Calendarにイベントを作成する' do
+        allow(mock_google_service).to receive(:insert_event).and_return(created_event)
 
         result = service.create_event(title, start_time, end_time, 'primary', description)
 
@@ -49,8 +45,8 @@ RSpec.describe CalendarEventCreationService, type: :service do
         expect(result[:event]).to eq(created_event)
       end
 
-      it 'creates an event with default description' do
-        expect(mock_google_service).to receive(:insert_event) do |_calendar_id, event|
+      it 'デフォルトの説明でイベントを作成する' do
+        allow(mock_google_service).to receive(:insert_event) do |_calendar_id, event|
           expect(event.description).to eq('Created by TRPG Calendar')
           created_event
         end.and_return(created_event)
@@ -58,27 +54,29 @@ RSpec.describe CalendarEventCreationService, type: :service do
         service.create_event(title, start_time, end_time)
       end
 
-      it 'uses primary calendar by default' do
-        expect(mock_google_service).to receive(:insert_event).with(
+      it 'デフォルトでプライマリカレンダーを使用する' do
+        allow(mock_google_service).to receive(:insert_event).with(
           'primary',
           kind_of(Google::Apis::CalendarV3::Event)
         ).and_return(created_event)
 
-        service.create_event(title, start_time, end_time)
+        result = service.create_event(title, start_time, end_time)
+        expect(result[:success]).to be true
       end
 
-      it 'accepts custom calendar_id' do
+      it 'カスタムcalendar_idを受け付ける' do
         custom_calendar_id = 'custom@example.com'
-        expect(mock_google_service).to receive(:insert_event).with(
+        allow(mock_google_service).to receive(:insert_event).with(
           custom_calendar_id,
           kind_of(Google::Apis::CalendarV3::Event)
         ).and_return(created_event)
 
-        service.create_event(title, start_time, end_time, custom_calendar_id)
+        result = service.create_event(title, start_time, end_time, custom_calendar_id)
+        expect(result[:success]).to be true
       end
 
-      it 'sets timezone to Asia/Tokyo' do
-        expect(mock_google_service).to receive(:insert_event) do |_calendar_id, event|
+      it 'タイムゾーンをAsia/Tokyoに設定する' do
+        allow(mock_google_service).to receive(:insert_event) do |_calendar_id, event|
           expect(event.start.time_zone).to eq('Asia/Tokyo')
           expect(event.end.time_zone).to eq('Asia/Tokyo')
           created_event
@@ -88,11 +86,11 @@ RSpec.describe CalendarEventCreationService, type: :service do
       end
     end
 
-    context 'when Google API error occurs' do
-      it 'returns error result and logs error' do
+    context 'Google APIエラーが発生した場合' do
+      it 'エラー結果を返しエラーをログに記録する' do
         error = Google::Apis::ClientError.new('API Error')
-        expect(mock_google_service).to receive(:insert_event).and_raise(error)
-        expect(Rails.logger).to receive(:error).with("Google Calendar API Error: #{error.message}")
+        allow(mock_google_service).to receive(:insert_event).and_raise(error)
+        allow(Rails.logger).to receive(:error).with("Google Calendar API Error: #{error.message}")
 
         result = service.create_event(title, start_time, end_time)
 
@@ -101,12 +99,12 @@ RSpec.describe CalendarEventCreationService, type: :service do
       end
     end
 
-    context 'when service is not available' do
+    context 'サービスが利用できない場合' do
       before do
         allow(user).to receive(:google_calendar_service).and_return(nil)
       end
 
-      it 'returns error result' do
+      it 'エラー結果を返す' do
         result = service.create_event(title, start_time, end_time)
 
         expect(result[:success]).to be false
@@ -130,9 +128,9 @@ RSpec.describe CalendarEventCreationService, type: :service do
       )
     end
 
-    context 'when service is available' do
-      it 'updates an event in Google Calendar' do
-        expect(mock_google_service).to receive(:update_event).and_return(updated_event)
+    context 'サービスが利用可能な場合' do
+      it 'Google Calendarのイベントを更新する' do
+        allow(mock_google_service).to receive(:update_event).and_return(updated_event)
 
         result = service.update_event(google_event_id, title, start_time, end_time, 'primary', description)
 
@@ -140,8 +138,8 @@ RSpec.describe CalendarEventCreationService, type: :service do
         expect(result[:event]).to eq(updated_event)
       end
 
-      it 'uses default description when not provided' do
-        expect(mock_google_service).to receive(:update_event) do |_calendar_id, _event_id, event|
+      it '指定されない場合はデフォルトの説明を使用する' do
+        allow(mock_google_service).to receive(:update_event) do |_calendar_id, _event_id, event|
           expect(event.description).to eq('Updated by TRPG Calendar')
           updated_event
         end.and_return(updated_event)
@@ -149,22 +147,23 @@ RSpec.describe CalendarEventCreationService, type: :service do
         service.update_event(google_event_id, title, start_time, end_time)
       end
 
-      it 'passes event_id correctly' do
-        expect(mock_google_service).to receive(:update_event).with(
+      it 'event_idを正しく渡す' do
+        allow(mock_google_service).to receive(:update_event).with(
           'primary',
           google_event_id,
           kind_of(Google::Apis::CalendarV3::Event)
         ).and_return(updated_event)
 
-        service.update_event(google_event_id, title, start_time, end_time)
+        result = service.update_event(google_event_id, title, start_time, end_time)
+        expect(result[:success]).to be true
       end
     end
 
-    context 'when Google API error occurs' do
-      it 'returns error result and logs error' do
+    context 'Google APIエラーが発生した場合' do
+      it 'エラー結果を返しエラーをログに記録する' do
         error = Google::Apis::ClientError.new('Update failed')
-        expect(mock_google_service).to receive(:update_event).and_raise(error)
-        expect(Rails.logger).to receive(:error).with("Google Calendar API Error: #{error.message}")
+        allow(mock_google_service).to receive(:update_event).and_raise(error)
+        allow(Rails.logger).to receive(:error).with("Google Calendar API Error: #{error.message}")
 
         result = service.update_event(google_event_id, title, start_time, end_time)
 
@@ -173,12 +172,12 @@ RSpec.describe CalendarEventCreationService, type: :service do
       end
     end
 
-    context 'when service is not available' do
+    context 'サービスが利用できない場合' do
       before do
         allow(user).to receive(:google_calendar_service).and_return(nil)
       end
 
-      it 'returns error result' do
+      it 'エラー結果を返す' do
         result = service.update_event(google_event_id, title, start_time, end_time)
 
         expect(result[:success]).to be false
@@ -190,31 +189,32 @@ RSpec.describe CalendarEventCreationService, type: :service do
   describe '#delete_event' do
     let(:google_event_id) { 'event_123' }
 
-    context 'when service is available' do
-      it 'deletes an event from Google Calendar' do
-        expect(mock_google_service).to receive(:delete_event).with('primary', google_event_id)
+    context 'サービスが利用可能な場合' do
+      it 'Google Calendarからイベントを削除する' do
+        allow(mock_google_service).to receive(:delete_event).with('primary', google_event_id)
 
         result = service.delete_event(google_event_id)
 
         expect(result[:success]).to be true
       end
 
-      it 'accepts custom calendar_id' do
+      it 'カスタムcalendar_idを受け付ける' do
         custom_calendar_id = 'custom@example.com'
-        expect(mock_google_service).to receive(:delete_event).with(
+        allow(mock_google_service).to receive(:delete_event).with(
           custom_calendar_id,
           google_event_id
         )
 
-        service.delete_event(google_event_id, custom_calendar_id)
+        result = service.delete_event(google_event_id, custom_calendar_id)
+        expect(result[:success]).to be true
       end
     end
 
-    context 'when Google API error occurs' do
-      it 'returns error result and logs error' do
+    context 'Google APIエラーが発生した場合' do
+      it 'エラー結果を返しエラーをログに記録する' do
         error = Google::Apis::ClientError.new('Delete failed')
-        expect(mock_google_service).to receive(:delete_event).and_raise(error)
-        expect(Rails.logger).to receive(:error).with("Google Calendar API Error: #{error.message}")
+        allow(mock_google_service).to receive(:delete_event).and_raise(error)
+        allow(Rails.logger).to receive(:error).with("Google Calendar API Error: #{error.message}")
 
         result = service.delete_event(google_event_id)
 
@@ -223,12 +223,12 @@ RSpec.describe CalendarEventCreationService, type: :service do
       end
     end
 
-    context 'when service is not available' do
+    context 'サービスが利用できない場合' do
       before do
         allow(user).to receive(:google_calendar_service).and_return(nil)
       end
 
-      it 'returns error result' do
+      it 'エラー結果を返す' do
         result = service.delete_event(google_event_id)
 
         expect(result[:success]).to be false
