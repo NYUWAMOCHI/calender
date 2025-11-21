@@ -1,0 +1,21 @@
+ja:
+  groups:
+    create:
+      success: 'グループを作成しました。'
+      failed: 'グループの作成に失敗しました。'
+    update:
+      success: 'グループを更新しました。'
+      failed: 'グループの更新に失敗しました。'
+    add_member:
+      user_not_found: 'ユーザーが見つかりません。'
+      already_member: 'ユーザーは既にメンバーです。'
+      success: 'メンバーを追加しました。'
+      failed: 'メンバーの追加に失敗しました: %{message}'
+    remove_member:
+      not_found: 'メンバーが見つかりません。'
+      cannot_remove_kp: 'KPをグループから削除することはできません。'
+      success: 'メンバーを削除しました。'
+    leave_group:
+      not_member: 'このグループのメンバーではありません。'
+      kp_cannot_leave: 'KPはグループを退出できません。KPロールを譲るか、グループを削除してください。'
+      success: 'グループから退出しました。'
