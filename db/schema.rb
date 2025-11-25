@@ -97,19 +97,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_000001) do
 
   create_table "groups", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "name"
+    t.string "name", null: false
     t.text "intro"
+    t.date "planned_period_start", null: false
+    t.date "planned_period_end", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "planned_period_start"
-    t.date "planned_period_end"
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
-    t.integer "role"
+    t.integer "role", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -140,14 +140,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_000001) do
     t.integer "weekday_end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id", "user_id"], name: "index_profiles_on_group_id_and_user_id", unique: true
     t.index ["group_id"], name: "index_profiles_on_group_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "scenarios", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "group_id", null: false
     t.index ["group_id"], name: "index_scenarios_on_group_id"
   end
 
@@ -159,6 +161,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_000001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["scenario_id"], name: "index_user_scenarios_on_scenario_id"
+    t.index ["user_id", "scenario_id"], name: "index_user_scenarios_on_user_id_and_scenario_id", unique: true
     t.index ["user_id"], name: "index_user_scenarios_on_user_id"
   end
 

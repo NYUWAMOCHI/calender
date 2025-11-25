@@ -13,7 +13,13 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index', as: :dashboard
 
   # Groups routes
-  resources :groups, only: [:show]
+  resources :groups do
+    member do
+      post :add_member
+      delete :remove_member
+      delete :leave_group
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
