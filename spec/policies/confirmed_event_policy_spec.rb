@@ -14,31 +14,31 @@ RSpec.describe ConfirmedEventPolicy do
     group.memberships.create!(user: kp_user, role: :kp)
   end
 
-  context '#show?' do
+  describe '#show?' do
     it 'メンバーがshowアクセスを許可される' do
-      policy = ConfirmedEventPolicy.new(pl_user, confirmed_event)
+      policy = described_class.new(pl_user, confirmed_event)
       expect(policy.show?).to be true
     end
 
     it 'メンバーではないユーザーはshowアクセスを拒否される' do
-      policy = ConfirmedEventPolicy.new(other_user, confirmed_event)
+      policy = described_class.new(other_user, confirmed_event)
       expect(policy.show?).to be false
     end
   end
 
-  context '#destroy?' do
+  describe '#destroy?' do
     it 'KPがdestroyアクセスを許可される' do
-      policy = ConfirmedEventPolicy.new(kp_user, confirmed_event)
+      policy = described_class.new(kp_user, confirmed_event)
       expect(policy.destroy?).to be true
     end
 
     it 'PLはdestroyアクセスを拒否される' do
-      policy = ConfirmedEventPolicy.new(pl_user, confirmed_event)
+      policy = described_class.new(pl_user, confirmed_event)
       expect(policy.destroy?).to be false
     end
 
     it 'メンバーではないユーザーはdestroyアクセスを拒否される' do
-      policy = ConfirmedEventPolicy.new(other_user, confirmed_event)
+      policy = described_class.new(other_user, confirmed_event)
       expect(policy.destroy?).to be false
     end
   end

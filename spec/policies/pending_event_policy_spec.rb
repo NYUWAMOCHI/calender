@@ -14,48 +14,48 @@ RSpec.describe PendingEventPolicy do
     group.memberships.create!(user: kp_user, role: :kp)
   end
 
-  context '#show?' do
+  describe '#show?' do
     it 'メンバーがshowアクセスを許可される' do
-      policy = PendingEventPolicy.new(pl_user, pending_event)
+      policy = described_class.new(pl_user, pending_event)
       expect(policy.show?).to be true
     end
 
     it 'メンバーではないユーザーはshowアクセスを拒否される' do
-      policy = PendingEventPolicy.new(other_user, pending_event)
+      policy = described_class.new(other_user, pending_event)
       expect(policy.show?).to be false
     end
   end
 
-  context '#create?' do
+  describe '#create?' do
     it 'KPがcreateアクセスを許可される' do
-      policy = PendingEventPolicy.new(kp_user, pending_event)
+      policy = described_class.new(kp_user, pending_event)
       expect(policy.create?).to be true
     end
 
     it 'PLはcreateアクセスを拒否される' do
-      policy = PendingEventPolicy.new(pl_user, pending_event)
+      policy = described_class.new(pl_user, pending_event)
       expect(policy.create?).to be false
     end
 
     it 'メンバーではないユーザーはcreateアクセスを拒否される' do
-      policy = PendingEventPolicy.new(other_user, pending_event)
+      policy = described_class.new(other_user, pending_event)
       expect(policy.create?).to be false
     end
   end
 
-  context '#destroy?' do
+  describe '#destroy?' do
     it 'KPがdestroyアクセスを許可される' do
-      policy = PendingEventPolicy.new(kp_user, pending_event)
+      policy = described_class.new(kp_user, pending_event)
       expect(policy.destroy?).to be true
     end
 
     it 'PLはdestroyアクセスを拒否される' do
-      policy = PendingEventPolicy.new(pl_user, pending_event)
+      policy = described_class.new(pl_user, pending_event)
       expect(policy.destroy?).to be false
     end
 
     it 'メンバーではないユーザーはdestroyアクセスを拒否される' do
-      policy = PendingEventPolicy.new(other_user, pending_event)
+      policy = described_class.new(other_user, pending_event)
       expect(policy.destroy?).to be false
     end
   end

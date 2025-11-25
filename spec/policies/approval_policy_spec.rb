@@ -15,36 +15,36 @@ RSpec.describe ApprovalPolicy do
     group.memberships.create!(user: kp_user, role: :kp)
   end
 
-  context '#create?' do
+  describe '#create?' do
     it 'PLがcreateアクセスを許可される' do
-      policy = ApprovalPolicy.new(pl_user, approval)
+      policy = described_class.new(pl_user, approval)
       expect(policy.create?).to be true
     end
 
     it 'KPはcreateアクセスを拒否される' do
-      policy = ApprovalPolicy.new(kp_user, approval)
+      policy = described_class.new(kp_user, approval)
       expect(policy.create?).to be false
     end
 
     it 'メンバーではないユーザーはcreateアクセスを拒否される' do
-      policy = ApprovalPolicy.new(other_user, approval)
+      policy = described_class.new(other_user, approval)
       expect(policy.create?).to be false
     end
   end
 
-  context '#update?' do
+  describe '#update?' do
     it 'PLがupdateアクセスを許可される' do
-      policy = ApprovalPolicy.new(pl_user, approval)
+      policy = described_class.new(pl_user, approval)
       expect(policy.update?).to be true
     end
 
     it 'KPはupdateアクセスを拒否される' do
-      policy = ApprovalPolicy.new(kp_user, approval)
+      policy = described_class.new(kp_user, approval)
       expect(policy.update?).to be false
     end
 
     it 'メンバーではないユーザーはupdateアクセスを拒否される' do
-      policy = ApprovalPolicy.new(other_user, approval)
+      policy = described_class.new(other_user, approval)
       expect(policy.update?).to be false
     end
   end

@@ -23,7 +23,7 @@ module Calender
     #
     config.time_zone = 'Asia/Tokyo'
     config.i18n.default_locale = :ja
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.load_path += Rails.root.glob('config/locales/**/*.{rb,yml}')
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
