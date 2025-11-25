@@ -20,6 +20,7 @@ class PendingEventPolicy < ApplicationPolicy
   end
 
   def user_is_group_kp?
-    record.group.kp_members.include?(user)
+    membership = record.group.memberships.find_by(user_id: user.id)
+    membership&.kp? || false
   end
 end

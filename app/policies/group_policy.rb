@@ -42,6 +42,7 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def user_is_kp?
-    record.kp_members.include?(user)
+    membership = record.memberships.find_by(user_id: user.id)
+    membership&.kp? || false
   end
 end
